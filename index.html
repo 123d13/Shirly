@@ -96,7 +96,7 @@
             }
         }
 
-        /* Corazones flotantes en el fondo */
+         /* Corazones flotantes en el fondo */
         .background-hearts {
             position: absolute;
             width: 100%;
@@ -106,6 +106,7 @@
             pointer-events: none;
             z-index: -1;
             overflow: hidden;
+
         }
 
         .background-heart {
@@ -154,7 +155,7 @@
             }
         }
 
-        /* Estrellas brillando */
+/* Estrellas brillando */
         .star {
             position: absolute;
             width: 5px;
@@ -185,9 +186,10 @@
             bottom: 0;
             z-index: -2;
             background: radial-gradient(circle, rgba(255,105,180,1) 20%, rgba(30,30,30,1) 100%);
+
         }
 
-        /* Ajustes responsivos para móviles */
+         /* Ajustes responsivos para móviles */
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.5em;
@@ -235,7 +237,7 @@
     <div id="big-heart">&#10084;</div>
 
     <!-- Audio de fondo -->
-    <audio id="romantic-song" loop autoplay
+    <audio id="romantic-song" loop autoplay>
         <source src="Kurt - La Mujer Perfecta (Lyric Video).mp3" type="audio/mp3">
     </audio>
 
@@ -243,22 +245,33 @@
         const noButton = document.getElementById("no");
         const siButton = document.getElementById("si");
         const mensaje = document.getElementById("mensaje");
-        const backgroundHearts = document.querySelector('.background-hearts');
+         const backgroundHearts = document.querySelector('.background-hearts');
         const bigHeart = document.getElementById("big-heart");
         const song = document.getElementById("romantic-song");
         const body = document.body;
 
-        // Mover el botón "No" cuando el mouse se acerca
-        noButton.addEventListener("mouseenter", function() {
-            noButton.style.top = `${Math.random() * 80 + 10}vh`;
-            noButton.style.left = `${Math.random() * 80 + 10}vw`;
-        });
+        // Verificar si el dispositivo es móvil
+        const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints;
+
+        // Mover el botón "No" cuando el mouse se acerca, excepto en dispositivos táctiles
+        if (!isMobile) {
+            noButton.addEventListener("mouseenter", function() {
+                noButton.style.top = `${Math.random() * 80 + 10}vh`;
+                noButton.style.left = `${Math.random() * 80 + 10}vw`;
+            });
+        } else {
+            noButton.addEventListener("click", function() {
+                noButton.style.top = `${Math.random() * 100}vh`;
+                noButton.style.left = `${Math.random() * 100}vw`;
+            });
+        }
 
         noButton.addEventListener("click", function(event) {
             event.preventDefault();
         });
 
         // Mostrar el mensaje, corazones flotantes y explosión de corazones al hacer clic en "Si"
+
         siButton.addEventListener("click", function() {
             mensaje.style.display = "block";
             bigHeart.style.display = "block";
@@ -269,19 +282,14 @@
             // Cambiar el color de fondo
             body.style.backgroundColor = "#ffcccc"; // Cambia el color de fondo aquí
 
-            // Generar corazones flotantes en el fondo
+           // Generar corazones flotantes en el fondo
             for (let i = 0; i < 50; i++) {
                 const heart = document.createElement('div');
                 heart.classList.add('background-heart');
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.top = Math.random() * 100 + 'vh'; // Ajustar posición vertical
-                heart.style.animationDuration = Math.random() * 3 + 4 + 's';
+                heart.style.left = `${Math.random() * 100}vw`;
+                heart.style.animationDuration = `${Math.random() * 10 + 5}s`;
                 backgroundHearts.appendChild(heart);
 
-                // Eliminar corazones después de la animación
-                setTimeout(() => {
-                    heart.remove();
-                }, 6000); // Debe ser igual al tiempo de animación
             }
         });
     </script>

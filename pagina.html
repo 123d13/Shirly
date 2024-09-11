@@ -33,17 +33,17 @@
         }
 
         h1 {
-            font-size: 5vw; /* Ajuste relativo al ancho de la pantalla */
-            margin-bottom: 40px;
+            font-size: 6vw; /* Ajustado para pantallas móviles */
+            margin-bottom: 20px;
         }
 
         p {
-            font-size: 3.5vw; /* Ajuste relativo */
+            font-size: 4vw; /* Ajuste relativo */
         }
 
         button {
-            padding: 15px 30px;
-            font-size: 4vw; /* Ajuste relativo */
+            padding: 10px 20px;
+            font-size: 4vw; /* Ajustado para pantallas móviles */
             margin: 20px;
             cursor: pointer;
             border: none;
@@ -62,7 +62,7 @@
         }
 
         #no, #si {
-            width: 150px;
+            width: 100px;
         }
 
         #no {
@@ -110,8 +110,8 @@
 
         .background-heart {
             position: absolute;
-            width: 30px;
-            height: 30px;
+            width: 20px;
+            height: 20px;
             background-color: red;
             clip-path: polygon(50% 0%, 100% 38%, 80% 100%, 50% 78%, 20% 100%, 0% 38%);
             animation: float 15s ease-in-out infinite;
@@ -135,7 +135,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 70vw; /* Ajuste relativo */
+            font-size: 50vw; /* Ajustado para pantallas móviles */
             color: red;
             animation: explotar 2s ease-in-out forwards;
         }
@@ -184,33 +184,33 @@
             background: radial-gradient(circle, rgba(255,105,180,1) 20%, rgba(30,30,30,1) 100%);
         }
 
-        /* Ajustes responsivos para móviles */
-        @media (max-width: 768px) {
+        /* Ajustes responsivos para pantallas muy pequeñas */
+        @media (max-width: 480px) {
             h1 {
-                font-size: 6vw; /* Ajuste relativo */
+                font-size: 8vw; /* Aún más pequeño para pantallas de menor tamaño */
             }
 
             button {
-                padding: 10px 20px;
-                font-size: 5vw; /* Ajuste relativo */
+                padding: 8px 16px;
+                font-size: 5vw; /* Ajustado para pantallas más pequeñas */
                 width: 80px;
             }
 
             #mensaje {
-                font-size: 5vw; /* Ajuste relativo */
+                font-size: 5vw; /* Ajustado */
             }
 
             #big-heart {
-                font-size: 70vw; /* Ajuste relativo */
+                font-size: 60vw; /* Ajustado */
             }
 
             .background-heart {
-                width: 20px;
-                height: 20px;
+                width: 15px;
+                height: 15px;
             }
 
             .corazon {
-                font-size: 6vw; /* Ajuste relativo */
+                font-size: 6vw; /* Ajustado */
             }
         }
     </style>

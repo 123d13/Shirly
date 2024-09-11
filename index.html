@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¿Te gustaria que fueramos algo mas?</title>
+    <title>¿Te gustaría que fuéramos algo más?</title>
+
     <style>
         /* Fuentes de Google */
         @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500&display=swap');
@@ -22,33 +23,33 @@
             align-items: center;
             overflow: hidden;
             position: relative;
-            transition: background-color 1s ease; /* Transición suave para el color de fondo */
+            transition: background-color 1s ease;
         }
 
         h1, p {
             font-family: 'Pacifico', cursive;
-            color: #FFD700; /* Color dorado */
+            color: #FFD700;
             text-shadow: 0px 4px 10px rgba(255, 223, 0, 0.7);
         }
 
         h1 {
-            font-size: 3.5em;
+            font-size: 5vw; /* Ajuste relativo al ancho de la pantalla */
             margin-bottom: 40px;
         }
 
         p {
-            font-size: 1.5em;
+            font-size: 3.5vw; /* Ajuste relativo */
         }
 
         button {
-            padding: 20px 40px;
-            font-size: 1.5em;
+            padding: 15px 30px;
+            font-size: 4vw; /* Ajuste relativo */
             margin: 20px;
             cursor: pointer;
             border: none;
             border-radius: 15px;
-            background-color: #FFD700; /* Color dorado */
-            color: #1e1e1e; /* Color del texto en el botón */
+            background-color: #FFD700;
+            color: #1e1e1e;
             transition: all 0.3s ease-in-out;
             box-shadow: 0 5px 15px rgba(255, 223, 0, 0.7);
             font-family: 'Pacifico', cursive;
@@ -56,7 +57,7 @@
         }
 
         button:hover {
-            background-color: #FFC107; /* Un dorado más oscuro para el hover */
+            background-color: #FFC107;
             transform: scale(1.1);
         }
 
@@ -69,16 +70,16 @@
         }
 
         #mensaje {
-            font-size: 2em;
+            font-size: 4vw; /* Ajuste relativo */
             margin-top: 30px;
             display: none;
-            color: #FFD700; /* Cambiado a dorado para coincidir con el título */
+            color: #FFD700;
             text-shadow: 0px 4px 10px rgba(255, 223, 0, 0.7);
         }
 
         .corazon {
             color: red;
-            font-size: 3em;
+            font-size: 7vw; /* Ajuste relativo */
             display: inline-block;
             margin: 10px;
             animation: latir 1.2s infinite;
@@ -96,7 +97,6 @@
             }
         }
 
-         /* Corazones flotantes en el fondo */
         .background-hearts {
             position: absolute;
             width: 100%;
@@ -106,7 +106,6 @@
             pointer-events: none;
             z-index: -1;
             overflow: hidden;
-
         }
 
         .background-heart {
@@ -130,14 +129,13 @@
             }
         }
 
-        /* Corazón grande */
         #big-heart {
             display: none;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 100vw;
+            font-size: 70vw; /* Ajuste relativo */
             color: red;
             animation: explotar 2s ease-in-out forwards;
         }
@@ -155,7 +153,6 @@
             }
         }
 
-/* Estrellas brillando */
         .star {
             position: absolute;
             width: 5px;
@@ -177,7 +174,6 @@
             }
         }
 
-        /* Añadir más decoración */
         .decoracion {
             position: absolute;
             top: 0;
@@ -186,27 +182,26 @@
             bottom: 0;
             z-index: -2;
             background: radial-gradient(circle, rgba(255,105,180,1) 20%, rgba(30,30,30,1) 100%);
-
         }
 
-         /* Ajustes responsivos para móviles */
+        /* Ajustes responsivos para móviles */
         @media (max-width: 768px) {
             h1 {
-                font-size: 2.5em;
+                font-size: 6vw; /* Ajuste relativo */
             }
 
             button {
-                padding: 15px 30px;
-                font-size: 1.2em;
-                width: 120px;
+                padding: 10px 20px;
+                font-size: 5vw; /* Ajuste relativo */
+                width: 80px;
             }
 
             #mensaje {
-                font-size: 1.5em;
+                font-size: 5vw; /* Ajuste relativo */
             }
 
             #big-heart {
-                font-size: 70vw;
+                font-size: 70vw; /* Ajuste relativo */
             }
 
             .background-heart {
@@ -215,19 +210,19 @@
             }
 
             .corazon {
-                font-size: 2em;
+                font-size: 6vw; /* Ajuste relativo */
             }
         }
     </style>
 </head>
 <body>
     <div class="decoracion"></div>
-    <h1>¿Te gusataria que fuéramos algo mas?</h1>
-    <button id="si">Si</button>
+    <h1>¿Te gustaría que fuéramos algo más?</h1>
+    <button id="si">Sí</button>
     <button id="no">No</button>
 
     <div id="mensaje">
-        <p>Mañana te espero a las 3:30 Pm donde nos dimos nuestro primer beso (si no te acuerdas fue en el semáforo de la 10 con tercera)</p>
+        <p>Mañana te espero a las 3:30 PM donde nos dimos nuestro primer beso (si no te acuerdas fue en el semáforo de la 10 con tercera)</p>
         <span class="corazon">&#10084;</span><span class="corazon">&#10084;</span><span class="corazon">&#10084;</span>
     </div>
 
@@ -245,15 +240,13 @@
         const noButton = document.getElementById("no");
         const siButton = document.getElementById("si");
         const mensaje = document.getElementById("mensaje");
-         const backgroundHearts = document.querySelector('.background-hearts');
+        const backgroundHearts = document.querySelector('.background-hearts');
         const bigHeart = document.getElementById("big-heart");
         const song = document.getElementById("romantic-song");
         const body = document.body;
 
-        // Verificar si el dispositivo es móvil
         const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints;
 
-        // Mover el botón "No" cuando el mouse se acerca, excepto en dispositivos táctiles
         if (!isMobile) {
             noButton.addEventListener("mouseenter", function() {
                 noButton.style.top = `${Math.random() * 80 + 10}vh`;
@@ -270,26 +263,20 @@
             event.preventDefault();
         });
 
-        // Mostrar el mensaje, corazones flotantes y explosión de corazones al hacer clic en "Si"
-
         siButton.addEventListener("click", function() {
             mensaje.style.display = "block";
             bigHeart.style.display = "block";
 
-            // Iniciar canción romántica
             song.play();
 
-            // Cambiar el color de fondo
-            body.style.backgroundColor = "#ffcccc"; // Cambia el color de fondo aquí
+            body.style.backgroundColor = "#ffcccc"; 
 
-           // Generar corazones flotantes en el fondo
             for (let i = 0; i < 50; i++) {
                 const heart = document.createElement('div');
                 heart.classList.add('background-heart');
                 heart.style.left = `${Math.random() * 100}vw`;
                 heart.style.animationDuration = `${Math.random() * 10 + 5}s`;
                 backgroundHearts.appendChild(heart);
-
             }
         });
     </script>

@@ -312,9 +312,8 @@
         siButton.addEventListener("click", function() {
             mensaje.style.display = "block";
             bigHeart.style.display = "block";
-
+            noButton.style.display = "none"; // Ocultar el botón "No"
             song.play();
-
             body.style.backgroundColor = "#ffcccc"; 
 
             for (let i = 0; i < 50; i++) {

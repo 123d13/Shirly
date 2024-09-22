@@ -52,6 +52,7 @@
             box-shadow: 0 5px 15px rgba(255, 223, 0, 0.7);
             font-family: 'Pacifico', cursive;
             text-transform: uppercase;
+            position: relative; /* Asegura que se mantenga en su lugar */
         }
 
         button:hover {
@@ -61,6 +62,7 @@
 
         #no, #si {
             width: 100px;
+            z-index: 1; /* Asegura que se muestre por encima */
         }
 
         #mensaje {
@@ -193,7 +195,7 @@
             }
 
             .floating-images {
-                width: 5vw; /* Hacer imágenes más pequeñas */
+                width: 15vw; /* Hacer imágenes más grandes en móviles */
                 height: auto;
                 max-height: 80vh; /* Limitar la altura para móviles */
             }
@@ -256,7 +258,7 @@
             const img = document.createElement("img");
             img.src = src;
             img.className = "floating-images";
-            img.style.width = isMainImage ? "20vw" : "5vw"; // Hacer más pequeñas las imágenes
+            img.style.width = isMainImage ? "20vw" : "15vw"; // Hacer más grandes las imágenes
             img.style.height = "auto";
             img.style.top = Math.random() * 100 + "vh";
             img.style.left = Math.random() * 100 + "vw";
@@ -288,13 +290,20 @@
             createHeart();
         }
 
+        noButton.addEventListener("mouseenter", function() {
+            const buttonWidth = noButton.offsetWidth;
+            const buttonHeight = noButton.offsetHeight;
+            const maxX = window.innerWidth - buttonWidth;
+            const maxY = window.innerHeight - buttonHeight;
+
+            noButton.style.top = `${Math.random() * maxY}px`;
+            noButton.style.left = `${Math.random() * maxX}px`;
+        });
+
         noButton.addEventListener("click", function(event) {
             event.preventDefault();
             noClickCount++;
-            noButton.style.top = `${Math.random() * 80 + 10}vh`;
-            noButton.style.left = `${Math.random() * 80 + 10}vw`;
-
-            if (noClickCount >= 5 && isMobile) {
+            if (noClickCount >= 5) {
                 mensajeFinal.style.display = "block";
                 setTimeout(() => {
                     mensajeFinal.style.display = "none";
@@ -326,7 +335,4 @@
     </script>
 </body>
 </html>
-
-</html>
-
 

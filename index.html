@@ -196,6 +196,7 @@
                 font-size: 5vw;
                 width: 80px;
                 position: relative; /* Cambiado para movimiento en móviles */
+                animation: moveButton 2s infinite; /* Agregada animación de movimiento */
             }
 
             #mensaje {
@@ -205,6 +206,12 @@
             #big-heart {
                 font-size: 50vw;
             }
+        }
+
+        @keyframes moveButton {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(-10px, -10px); }
+            100% { transform: translate(0, 0); }
         }
     </style>
 </head>
@@ -260,6 +267,7 @@
             event.preventDefault();
             noClickCount++;
             moveButton(noButton); // Mover el botón cada vez que se hace clic
+            createDestello();
             if (noClickCount >= 5) {
                 mensajeFinal.style.display = "block";
                 setTimeout(() => {
@@ -267,7 +275,6 @@
                     noClickCount = 0;
                 }, 10000);
             }
-            createDestello();
         });
 
         siButton.addEventListener("click", function() {

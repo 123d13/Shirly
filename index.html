@@ -7,7 +7,7 @@
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500&display=swap');
-        
+
         body {
             font-family: 'Poppins', sans-serif;
             text-align: center;
@@ -152,35 +152,25 @@
             }
         }
 
-        .star {
+        .floating-images {
             position: absolute;
-            width: 5px;
-            height: 5px;
-            background-color: yellow;
-            border-radius: 50%;
-            animation: twinkle 1.5s infinite;
+            width: 100px;
+            height: auto;
+            border-radius: 10px;
+            object-fit: cover;
+            animation: float 10s infinite ease-in-out;
+            opacity: 0.9;
         }
 
-        @keyframes twinkle {
+        @keyframes float {
             0% {
-                opacity: 0;
-            }
-            50% {
-                opacity: 1;
+                transform: translateY(100vh) scale(0.8);
+                opacity: 0.9;
             }
             100% {
+                transform: translateY(-10vh) scale(1);
                 opacity: 0;
             }
-        }
-
-        .decoracion {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: -2;
-            background: radial-gradient(circle, rgba(0,0,0,0.8) 20%, rgba(30,30,30,1) 100%);
         }
 
         @media (max-width: 480px) {
@@ -210,6 +200,11 @@
             .corazon {
                 font-size: 6vw;
             }
+
+            .floating-images {
+                width: 50px;
+                height: 50px;
+            }
         }
 
         #mensaje-final {
@@ -233,7 +228,6 @@
     </style>
 </head>
 <body>
-    <div class="decoracion"></div>
     <h1>¿Quieres ser mi novia?</h1>
     <button id="si">Sí</button>
     <button id="no">No</button>
@@ -266,15 +260,37 @@
         const body = document.body;
 
         let noClickCount = 0;
-
         const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints;
 
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('background-heart');
-            heart.style.left = `${Math.random() * 100}vw`;
-            heart.style.animationDuration = `${Math.random() * 10 + 5}s`;
-            backgroundHearts.appendChild(heart);
+        const imageSources = [
+            "WhatsApp Image 2024-09-22 at 2.01.46 AM.jpeg",
+            "WhatsApp Image 2024-09-22 at 2.01.47 AM.jpeg",
+            "WhatsApp Image 2024-09-22 at 3.10.57 PM.jpeg",
+            "WhatsApp Image 2024-09-22 at 3.47.01 PM (1).jpeg",
+            "WhatsApp Image 2024-09-22 at 3.47.01 PM (2).jpeg",
+            "WhatsApp Image 2024-09-22 at 3.47.01 PM.jpeg",
+            "WhatsApp Image 2024-09-22 at 3.49.04 PM.jpeg",
+            "WhatsApp Image 2024-09-22 at 4.02.48 PM (1).jpeg",
+            "WhatsApp Image 2024-09-22 at 4.02.48 PM (2).jpeg",
+            "WhatsApp Image 2024-09-22 at 4.02.48 PM.jpeg",
+            "WhatsApp Image 2024-09-22 at 4.02.49 PM (1).jpeg",
+            "WhatsApp Image 2024-09-22 at 4.02.49 PM (2).jpeg",
+            "WhatsApp Image 2024-09-22 at 4.02.49 PM (3).jpeg",
+            "WhatsApp Image 2024-09-22 at 4.02.49 PM.jpeg"
+        ];
+
+        function createImage(src) {
+            const img = document.createElement("img");
+            img.src = src;
+            img.className = "floating-images";
+            img.style.top = Math.random() * 100 + "vh";
+            img.style.left = Math.random() * 100 + "vw";
+            img.style.transform = `translate(-50%, -50%) rotate(${Math.random() * 360}deg)`;
+            backgroundHearts.appendChild(img);
+        }
+
+        for (let i = 0; i < imageSources.length; i++) {
+            createImage(imageSources[i]);
         }
 
         for (let i = 0; i < 50; i++) {
@@ -316,7 +332,17 @@
                 createHeart();
             }
         });
+
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.className = "background-heart";
+            heart.style.top = Math.random() * 100 + "vh";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 5 + 5 + "s";
+            backgroundHearts.appendChild(heart);
+        }
     </script>
 </body>
 </html>
+
 

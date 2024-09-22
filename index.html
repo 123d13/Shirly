@@ -52,7 +52,6 @@
             box-shadow: 0 5px 15px rgba(255, 223, 0, 0.7);
             font-family: 'Pacifico', cursive;
             text-transform: uppercase;
-            position: relative; /* Asegura que se mantenga en su lugar */
         }
 
         button:hover {
@@ -60,9 +59,13 @@
             transform: scale(1.1);
         }
 
-        #no, #si {
+        #no {
+            position: absolute;
             width: 100px;
-            z-index: 1; /* Asegura que se muestre por encima */
+        }
+
+        #si {
+            width: 100px;
         }
 
         #mensaje {
@@ -104,21 +107,23 @@
             overflow: hidden;
         }
 
-        .background-heart, .floating-images {
+        .background-heart {
             position: absolute;
+            width: 20px;
+            height: 20px;
             background-color: red;
             clip-path: polygon(50% 0%, 100% 38%, 80% 100%, 50% 78%, 20% 100%, 0% 38%);
-            animation: float 20s ease-in-out infinite;
+            animation: float 15s ease-in-out infinite;
             opacity: 0.8;
         }
 
         @keyframes float {
             0% {
-                transform: translateY(100vh);
+                transform: translateY(100vh) scale(0.8);
                 opacity: 0.8;
             }
             100% {
-                transform: translateY(-10vh);
+                transform: translateY(-10vh) scale(1.2);
                 opacity: 0;
             }
         }
@@ -129,7 +134,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 30vw; /* Aumentar el tamaño de la imagen principal */
+            font-size: 25vw;
             color: red;
             animation: explotar 2s ease-in-out forwards;
         }
@@ -184,21 +189,6 @@
             #big-heart {
                 font-size: 50vw;
             }
-
-            .background-heart {
-                width: 15px;
-                height: 15px;
-            }
-
-            .corazon {
-                font-size: 6vw;
-            }
-
-            .floating-images {
-                width: 15vw; /* Hacer imágenes más grandes en móviles */
-                height: auto;
-                max-height: 80vh; /* Limitar la altura para móviles */
-            }
         }
     </style>
 </head>
@@ -237,68 +227,29 @@
         let noClickCount = 0;
         const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints;
 
-        const imageSources = [
-            "WhatsApp Image 2024-09-22 at 2.01.46 AM.jpeg",
-            "WhatsApp Image 2024-09-22 at 2.01.47 AM.jpeg",
-            "WhatsApp Image 2024-09-22 at 3.10.57 PM.jpeg",
-            "WhatsApp Image 2024-09-22 at 3.47.01 PM (1).jpeg",
-            "WhatsApp Image 2024-09-22 at 3.47.01 PM (2).jpeg",
-            "WhatsApp Image 2024-09-22 at 3.47.01 PM.jpeg",
-            "WhatsApp Image 2024-09-22 at 3.49.04 PM.jpeg",
-            "WhatsApp Image 2024-09-22 at 4.02.48 PM (1).jpeg",
-            "WhatsApp Image 2024-09-22 at 4.02.48 PM (2).jpeg",
-            "WhatsApp Image 2024-09-22 at 4.02.48 PM.jpeg",
-            "WhatsApp Image 2024-09-22 at 4.02.49 PM (1).jpeg",
-            "WhatsApp Image 2024-09-22 at 4.02.49 PM (2).jpeg",
-            "WhatsApp Image 2024-09-22 at 4.02.49 PM (3).jpeg",
-            "WhatsApp Image 2024-09-22 at 4.02.49 PM.jpeg"
-        ];
-
-        function createImage(src, isMainImage = false) {
-            const img = document.createElement("img");
-            img.src = src;
-            img.className = "floating-images";
-            img.style.width = isMainImage ? "20vw" : "15vw"; // Hacer más grandes las imágenes
-            img.style.height = "auto";
-            img.style.top = Math.random() * 100 + "vh";
-            img.style.left = Math.random() * 100 + "vw";
-            img.style.transform = "translate(-50%, -50%)"; // Sin rotación
-            img.style.animationDuration = (Math.random() * 5 + 5) + "s"; // Variar duración
-            img.style.opacity = "0.9"; // Hacer que las imágenes sean semi-transparentes
-            img.style.zIndex = "0";
-            backgroundHearts.appendChild(img);
-
-            setTimeout(() => {
-                img.style.opacity = "0"; // Desaparecer la imagen
-            }, 15000); // 15 segundos antes de desaparecer
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('background-heart');
+            heart.style.left = `${Math.random() * 100}vw`;
+            heart.style.animationDuration = `${Math.random() * 10 + 5}s`;
+            backgroundHearts.appendChild(heart);
         }
 
-        // Crear múltiples instancias de la imagen principal
-        for (let i = 0; i < 10; i++) {
-            createImage(imageSources[0], true); // Imagen principal más grande
-        }
-
-        // Crear instancias de las otras imágenes
-        for (let i = 1; i < imageSources.length; i++) {
-            for (let j = 0; j < 5; j++) {
-                createImage(imageSources[i]);
-            }
-        }
-
-        // Crear corazones rojos
         for (let i = 0; i < 50; i++) {
             createHeart();
         }
 
-        noButton.addEventListener("mouseenter", function() {
-            const buttonWidth = noButton.offsetWidth;
-            const buttonHeight = noButton.offsetHeight;
-            const maxX = window.innerWidth - buttonWidth;
-            const maxY = window.innerHeight - buttonHeight;
-
-            noButton.style.top = `${Math.random() * maxY}px`;
-            noButton.style.left = `${Math.random() * maxX}px`;
-        });
+        if (!isMobile) {
+            noButton.addEventListener("mouseenter", function() {
+                noButton.style.top = `${Math.random() * 80 + 10}vh`;
+                noButton.style.left = `${Math.random() * 80 + 10}vw`;
+            });
+        } else {
+            noButton.addEventListener("click", function() {
+                noButton.style.top = `${Math.random() * 100}vh`;
+                noButton.style.left = `${Math.random() * 100}vw`;
+            });
+        }
 
         noButton.addEventListener("click", function(event) {
             event.preventDefault();
@@ -323,15 +274,6 @@
                 createHeart();
             }
         });
-
-        function createHeart() {
-            const heart = document.createElement("div");
-            heart.className = "background-heart";
-            heart.style.top = Math.random() * 100 + "vh";
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.animationDuration = Math.random() * 5 + 5 + "s";
-            backgroundHearts.appendChild(heart);
-        }
     </script>
 </body>
 </html>

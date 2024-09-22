@@ -145,6 +145,28 @@
             }
         }
 
+        #destello {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 15vw;
+            color: red;
+            animation: destelloAnimar 1s forwards;
+        }
+
+        @keyframes destelloAnimar {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -60%) scale(1.5);
+                opacity: 0;
+            }
+        }
+
         #mensaje-final {
             display: none;
             font-size: 5vw;
@@ -173,6 +195,7 @@
                 padding: 8px 16px;
                 font-size: 5vw;
                 width: 80px;
+                position: relative; /* Cambiado para movimiento en móviles */
             }
 
             #mensaje {
@@ -197,6 +220,7 @@
 
     <div class="background-hearts"></div>
     <div id="big-heart">&#10084;</div>
+    <div id="destello">&#10084;</div>
 
     <div id="mensaje-final">
         <p>Está bien, tal vez no soy lo que quieres, pero tú para mí eras todo lo que siempre he soñado.</p>
@@ -214,6 +238,7 @@
         const backgroundHearts = document.querySelector('.background-hearts');
         const bigHeart = document.getElementById("big-heart");
         const mensajeFinal = document.getElementById("mensaje-final");
+        const destello = document.getElementById("destello");
         const song = document.getElementById("romantic-song");
         const body = document.body;
 
@@ -242,6 +267,7 @@
                     noClickCount = 0;
                 }, 10000);
             }
+            createDestello();
         });
 
         siButton.addEventListener("click", function() {
@@ -264,9 +290,18 @@
             backgroundHearts.appendChild(heart);
         }
 
+        function createDestello() {
+            destello.style.display = "block";
+            destello.style.animation = "destelloAnimar 1s forwards";
+            setTimeout(() => {
+                destello.style.display = "none";
+            }, 1000);
+        }
+
         for (let i = 0; i < 50; i++) {
             createHeart();
         }
     </script>
 </body>
 </html>
+

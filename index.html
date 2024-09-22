@@ -30,17 +30,17 @@
         }
 
         h1 {
-            font-size: 4vw;
+            font-size: 8vw;
             margin-bottom: 20px;
         }
 
         p {
-            font-size: 2.5vw;
+            font-size: 5vw;
         }
 
         button {
-            padding: 10px 20px;
-            font-size: 2vw;
+            padding: 8px 16px;
+            font-size: 5vw;
             margin: 20px;
             cursor: pointer;
             border: none;
@@ -51,9 +51,8 @@
             box-shadow: 0 5px 15px rgba(255, 223, 0, 0.7);
             font-family: 'Pacifico', cursive;
             text-transform: uppercase;
-            position: relative;
-            z-index: 1;
-            width: 100px;
+            width: 80px;
+            position: relative; /* Para que se mueva correctamente */
         }
 
         button:hover {
@@ -62,7 +61,7 @@
         }
 
         #mensaje {
-            font-size: 2.5vw;
+            font-size: 5vw;
             margin-top: 30px;
             display: none;
             color: #FFD700;
@@ -71,7 +70,7 @@
 
         .corazon {
             color: red;
-            font-size: 4vw;
+            font-size: 8vw;
             display: inline-block;
             margin: 10px;
             animation: latir 1.2s infinite;
@@ -100,32 +99,13 @@
             overflow: hidden;
         }
 
-        .background-heart, .floating-images {
-            position: absolute;
-            background-color: red;
-            clip-path: polygon(50% 0%, 100% 38%, 80% 100%, 50% 78%, 20% 100%, 0% 38%);
-            animation: float 20s ease-in-out infinite;
-            opacity: 0.8;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(100vh);
-                opacity: 0.8;
-            }
-            100% {
-                transform: translateY(-10vh);
-                opacity: 0;
-            }
-        }
-
         #big-heart {
             display: none;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 30vw;
+            font-size: 50vw;
             color: red;
             animation: explotar 2s ease-in-out forwards;
         }
@@ -162,39 +142,31 @@
             z-index: 100;
         }
 
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 8vw;
-            }
+        .background-heart {
+            position: absolute;
+            background-color: red;
+            clip-path: polygon(50% 0%, 100% 38%, 80% 100%, 50% 78%, 20% 100%, 0% 38%);
+            animation: float 20s ease-in-out infinite;
+            opacity: 0.8;
+        }
 
-            button {
-                padding: 8px 16px;
-                font-size: 5vw;
-                width: 80px;
+        @keyframes float {
+            0% {
+                transform: translateY(100vh);
+                opacity: 0.8;
             }
+            100% {
+                transform: translateY(-10vh);
+                opacity: 0;
+            }
+        }
 
-            #mensaje {
-                font-size: 5vw;
-            }
-
-            #big-heart {
-                font-size: 50vw;
-            }
-
-            .background-heart {
-                width: 15px;
-                height: 15px;
-            }
-
-            .corazon {
-                font-size: 6vw;
-            }
-
-            .floating-images {
-                width: 15vw;
-                height: auto;
-                max-height: 80vh;
-            }
+        .floating-images {
+            position: absolute;
+            width: 15vw; /* Ajuste del tamaño */
+            height: auto;
+            max-height: 30vh; /* Limitar altura en móviles */
+            z-index: 0;
         }
     </style>
 </head>
@@ -204,7 +176,7 @@
     <button id="no">No</button>
 
     <div id="mensaje">
-        <p>Mañana te espero a las 3:30 PM donde nos dimos nuestro primer beso (si no te acuerdas fue en el semáforo de la 10 con tercera)</p>
+        <p>Mañana te espero a las 3:30 PM donde nos dimos nuestro primer beso.</p>
         <span class="corazon">&#10084;</span><span class="corazon">&#10084;</span><span class="corazon">&#10084;</span>
     </div>
 
@@ -212,8 +184,7 @@
     <div id="big-heart">&#10084;</div>
 
     <div id="mensaje-final">
-        <p>Está bien, tal vez no soy lo que quieres, pero tú para mí eras todo lo que siempre he soñado.</p>
-        <p>Aunque esta vez no se pueda, siempre serás un recuerdo bonito para mí.</p>
+        <p>Está bien, tal vez no soy lo que quieres, pero siempre serás un recuerdo bonito para mí.</p>
     </div>
 
     <audio id="romantic-song" loop autoplay>
@@ -224,7 +195,6 @@
         const noButton = document.getElementById("no");
         const siButton = document.getElementById("si");
         const mensaje = document.getElementById("mensaje");
-        const backgroundHearts = document.querySelector('.background-hearts');
         const bigHeart = document.getElementById("big-heart");
         const mensajeFinal = document.getElementById("mensaje-final");
         const song = document.getElementById("romantic-song");
@@ -255,26 +225,25 @@
             img.className = "floating-images";
             img.style.top = Math.random() * 100 + "vh";
             img.style.left = Math.random() * 100 + "vw";
-            img.style.animationDuration = (Math.random() * 5 + 5) + "s";
-            img.style.width = isMainImage ? "30vw" : "15vw";
-            img.style.height = "auto";
-            document.body.appendChild(img);
+            img.style.transform = "translate(-50%, -50%)"; // Sin rotación
+            img.style.animationDuration = (Math.random() * 5 + 5) + "s"; // Variar duración
+            img.style.opacity = "0.9"; // Hacer que las imágenes sean semi-transparentes
+            document.querySelector('.background-hearts').appendChild(img);
+
+            setTimeout(() => {
+                img.style.opacity = "0"; // Desaparecer la imagen
+            }, 15000); // 15 segundos antes de desaparecer
         }
 
-        // Crear imágenes
-        imageSources.forEach((src, index) => {
-            createImage(src, index === 0); // La primera imagen será la principal
+        // Crear múltiples instancias de la imagen principal
+        for (let i = 0; i < 5; i++) {
+            createImage(imageSources[0], true);
+        }
+
+        // Crear imágenes secundarias
+        imageSources.slice(1).forEach(src => {
+            createImage(src);
         });
-
-        // Función para mover el botón "No" en un cuadro de 10x10 píxeles
-        function moveButton() {
-            const maxX = window.innerWidth - noButton.offsetWidth;
-            const maxY = window.innerHeight - noButton.offsetHeight;
-            const randomX = Math.random() * maxX;
-            const randomY = Math.random() * maxY;
-
-            noButton.style.transform = `translate(${randomX}px, ${randomY}px)`;
-        }
 
         noButton.addEventListener("mouseenter", moveButton);
 
@@ -298,18 +267,14 @@
             body.style.backgroundColor = "#ffcccc"; 
         });
 
-        function createHeart() {
-            const heart = document.createElement("div");
-            heart.className = "background-heart";
-            heart.style.top = Math.random() * 100 + "vh";
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.animationDuration = Math.random() * 5 + 5 + "s";
-            backgroundHearts.appendChild(heart);
-        }
+        // Función para mover el botón "No" en un área visible
+        function moveButton() {
+            const maxX = window.innerWidth - noButton.offsetWidth;
+            const maxY = window.innerHeight - noButton.offsetHeight;
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
 
-        // Crear corazones rojos
-        for (let i = 0; i < 50; i++) {
-            createHeart();
+            noButton.style.transform = `translate(${randomX}px, ${randomY}px)`;
         }
     </script>
 </body>

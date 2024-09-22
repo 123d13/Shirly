@@ -232,6 +232,7 @@
         const bigHeart = document.getElementById("big-heart");
         const mensajeFinal = document.getElementById("mensaje-final");
         const song = document.getElementById("romantic-song");
+        const body = document.body;
 
         let noClickCount = 0;
         const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints;
@@ -248,55 +249,89 @@
             "WhatsApp Image 2024-09-22 at 4.02.48 PM (2).jpeg",
             "WhatsApp Image 2024-09-22 at 4.02.48 PM.jpeg",
             "WhatsApp Image 2024-09-22 at 4.02.49 PM (1).jpeg",
-            "WhatsApp Image 2024-09-22 at 4.02.49 PM.jpeg",
-            "WhatsApp Image 2024-09-22 at 4.02.50 PM.jpeg"
+            "WhatsApp Image 2024-09-22 at 4.02.49 PM (2).jpeg",
+            "WhatsApp Image 2024-09-22 at 4.02.49 PM (3).jpeg",
+            "WhatsApp Image 2024-09-22 at 4.02.49 PM.jpeg"
         ];
 
-        function createFloatingImages() {
-            const numImages = 4;
-            for (let i = 0; i < numImages; i++) {
-                const img = document.createElement('img');
-                img.src = imageSources[Math.floor(Math.random() * imageSources.length)];
-                img.classList.add('floating-images');
-                img.style.width = `${Math.random() * 15 + 5}vw`;
-                img.style.left = `${Math.random() * 100}vw`;
-                img.style.animationDuration = `${Math.random() * 10 + 5}s`;
-                img.style.animationDelay = `${Math.random() * 5}s`;
-                img.style.opacity = Math.random() * 0.5 + 0.5;
-                backgroundHearts.appendChild(img);
+        function createImage(src, isMainImage = false) {
+            const img = document.createElement("img");
+            img.src = src;
+            img.className = "floating-images";
+            img.style.width = isMainImage ? "20vw" : "15vw"; // Hacer más grandes las imágenes
+            img.style.height = "auto";
+            img.style.top = Math.random() * 100 + "vh";
+            img.style.left = Math.random() * 100 + "vw";
+            img.style.transform = "translate(-50%, -50%)"; // Sin rotación
+            img.style.animationDuration = (Math.random() * 5 + 5) + "s"; // Variar duración
+            img.style.opacity = "0.9"; // Hacer que las imágenes sean semi-transparentes
+            img.style.zIndex = "0";
+            backgroundHearts.appendChild(img);
+
+            setTimeout(() => {
+                img.style.opacity = "0"; // Desaparecer la imagen
+            }, 15000); // 15 segundos antes de desaparecer
+        }
+
+        // Crear múltiples instancias de la imagen principal
+        for (let i = 0; i < 10; i++) {
+            createImage(imageSources[0], true); // Imagen principal más grande
+        }
+
+        // Crear instancias de las otras imágenes
+        for (let i = 1; i < imageSources.length; i++) {
+            for (let j = 0; j < 5; j++) {
+                createImage(imageSources[i]);
             }
         }
 
-        siButton.addEventListener("click", function() {
-            mensaje.style.display = "block";
-            bigHeart.style.display = "block";
-            setTimeout(function() {
-                bigHeart.style.display = "none";
-            }, 2000);
-        });
+        // Crear corazones rojos
+        for (let i = 0; i < 50; i++) {
+            createHeart();
+        }
 
-        // En dispositivos móviles, el botón NO se moverá al hacer clic, no al pasar el ratón.
-        noButton.addEventListener(isMobile ? "click" : "mouseenter", function() {
+        noButton.addEventListener("mouseenter", function() {
             const buttonWidth = noButton.offsetWidth;
             const buttonHeight = noButton.offsetHeight;
             const maxX = window.innerWidth - buttonWidth;
             const maxY = window.innerHeight - buttonHeight;
 
-            noButton.style.top = `${Math.random() * maxY}px`;
-            noButton.style.left = `${Math.random() * maxX}px`;
+            noButton.style.top = ${Math.random() * maxY}px;
+            noButton.style.left = ${Math.random() * maxX}px;
         });
 
-        noButton.addEventListener("click", function() {
+        noButton.addEventListener("click", function(event) {
+            event.preventDefault();
             noClickCount++;
-            if (noClickCount >= 3) {
+            if (noClickCount >= 5) {
                 mensajeFinal.style.display = "block";
-                siButton.style.display = "none";
-                noButton.style.display = "none";
-                song.pause();
+                setTimeout(() => {
+                    mensajeFinal.style.display = "none";
+                    noClickCount = 0;
+                }, 10000);
             }
         });
 
-        createFloatingImages();
+        siButton.addEventListener("click", function() {
+            mensaje.style.display = "block";
+            bigHeart.style.display = "block";
+            noButton.style.display = "none"; 
+            song.play();
+            body.style.backgroundColor = "#ffcccc"; 
+
+            for (let i = 0; i < 50; i++) {
+                createHeart();
+            }
+        });
+
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.className = "background-heart";
+            heart.style.top = Math.random() * 100 + "vh";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 5 + 5 + "s";
+            backgroundHearts.appendChild(heart);
+        }
     </script>
 </body>
 </html>

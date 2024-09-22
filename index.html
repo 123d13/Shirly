@@ -199,11 +199,6 @@
                 height: auto;
                 max-height: 80vh; /* Limitar la altura para móviles */
             }
-
-            #no {
-                position: static;
-                pointer-events: none;
-            }
         }
     </style>
 </head>
@@ -237,7 +232,6 @@
         const bigHeart = document.getElementById("big-heart");
         const mensajeFinal = document.getElementById("mensaje-final");
         const song = document.getElementById("romantic-song");
-        const body = document.body;
 
         let noClickCount = 0;
         const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints;
@@ -254,7 +248,6 @@
             "WhatsApp Image 2024-09-22 at 4.02.48 PM (2).jpeg",
             "WhatsApp Image 2024-09-22 at 4.02.48 PM.jpeg",
             "WhatsApp Image 2024-09-22 at 4.02.49 PM (1).jpeg",
-            "WhatsApp Image 2024-09-22 at 4.02.49 PM (2).jpeg",
             "WhatsApp Image 2024-09-22 at 4.02.49 PM.jpeg",
             "WhatsApp Image 2024-09-22 at 4.02.50 PM.jpeg"
         ];
@@ -282,9 +275,8 @@
             }, 2000);
         });
 
-        noButton.addEventListener("mouseenter", function() {
-            if (isMobile) return; // Si es un dispositivo móvil, no mover el botón
-
+        // En dispositivos móviles, el botón NO se moverá al hacer clic, no al pasar el ratón.
+        noButton.addEventListener(isMobile ? "click" : "mouseenter", function() {
             const buttonWidth = noButton.offsetWidth;
             const buttonHeight = noButton.offsetHeight;
             const maxX = window.innerWidth - buttonWidth;
@@ -308,4 +300,3 @@
     </script>
 </body>
 </html>
-

@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>¿Quieres ser mi novia?</title>
-
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500&display=swap');
-        
+
         body {
             font-family: 'Poppins', sans-serif;
             text-align: center;
@@ -22,7 +21,6 @@
             align-items: center;
             overflow: hidden;
             position: relative;
-            transition: background-color 1s ease;
         }
 
         h1, p {
@@ -53,7 +51,9 @@
             box-shadow: 0 5px 15px rgba(255, 223, 0, 0.7);
             font-family: 'Pacifico', cursive;
             text-transform: uppercase;
-            position: absolute;
+            position: relative;
+            z-index: 1;
+            width: 100px;
         }
 
         button:hover {
@@ -100,23 +100,21 @@
             overflow: hidden;
         }
 
-        .background-heart {
+        .background-heart, .floating-images {
             position: absolute;
-            width: 20px;
-            height: 20px;
             background-color: red;
             clip-path: polygon(50% 0%, 100% 38%, 80% 100%, 50% 78%, 20% 100%, 0% 38%);
-            animation: float 15s ease-in-out infinite;
+            animation: float 20s ease-in-out infinite;
             opacity: 0.8;
         }
 
         @keyframes float {
             0% {
-                transform: translateY(100vh) scale(0.8);
+                transform: translateY(100vh);
                 opacity: 0.8;
             }
             100% {
-                transform: translateY(-10vh) scale(1.2);
+                transform: translateY(-10vh);
                 opacity: 0;
             }
         }
@@ -127,7 +125,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 25vw;
+            font-size: 30vw;
             color: red;
             animation: explotar 2s ease-in-out forwards;
         }
@@ -141,28 +139,6 @@
             }
             100% {
                 transform: translate(-50%, -50%) scale(0);
-                opacity: 0;
-            }
-        }
-
-        #destello {
-            display: none;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 15vw;
-            color: red;
-            animation: destelloAnimar 1s forwards;
-        }
-
-        @keyframes destelloAnimar {
-            0% {
-                transform: translate(-50%, -50%) scale(0);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(-50%, -60%) scale(1.5);
                 opacity: 0;
             }
         }
@@ -195,8 +171,6 @@
                 padding: 8px 16px;
                 font-size: 5vw;
                 width: 80px;
-                position: relative; /* Cambiado para movimiento en móviles */
-                animation: moveButton 2s infinite; /* Agregada animación de movimiento */
             }
 
             #mensaje {
@@ -206,12 +180,21 @@
             #big-heart {
                 font-size: 50vw;
             }
-        }
 
-        @keyframes moveButton {
-            0% { transform: translate(0, 0); }
-            50% { transform: translate(-10px, -10px); }
-            100% { transform: translate(0, 0); }
+            .background-heart {
+                width: 15px;
+                height: 15px;
+            }
+
+            .corazon {
+                font-size: 6vw;
+            }
+
+            .floating-images {
+                width: 15vw;
+                height: auto;
+                max-height: 80vh;
+            }
         }
     </style>
 </head>
@@ -227,7 +210,6 @@
 
     <div class="background-hearts"></div>
     <div id="big-heart">&#10084;</div>
-    <div id="destello">&#10084;</div>
 
     <div id="mensaje-final">
         <p>Está bien, tal vez no soy lo que quieres, pero tú para mí eras todo lo que siempre he soñado.</p>
@@ -245,29 +227,60 @@
         const backgroundHearts = document.querySelector('.background-hearts');
         const bigHeart = document.getElementById("big-heart");
         const mensajeFinal = document.getElementById("mensaje-final");
-        const destello = document.getElementById("destello");
         const song = document.getElementById("romantic-song");
         const body = document.body;
 
         let noClickCount = 0;
 
-        // Función para mover el botón "No"
-        function moveButton(button) {
-            const maxX = window.innerWidth - button.offsetWidth;
-            const maxY = window.innerHeight - button.offsetHeight;
-            button.style.left = Math.random() * maxX + 'px';
-            button.style.top = Math.random() * maxY + 'px';
+        const imageSources = [
+            "WhatsApp Image 2024-09-22 at 2.01.46 AM.jpeg",
+            "WhatsApp Image 2024-09-22 at 2.01.47 AM.jpeg",
+            "WhatsApp Image 2024-09-22 at 3.10.57 PM.jpeg",
+            "WhatsApp Image 2024-09-22 at 3.47.01 PM (1).jpeg",
+            "WhatsApp Image 2024-09-22 at 3.47.01 PM (2).jpeg",
+            "WhatsApp Image 2024-09-22 at 3.47.01 PM.jpeg",
+            "WhatsApp Image 2024-09-22 at 3.49.04 PM.jpeg",
+            "WhatsApp Image 2024-09-22 at 4.02.48 PM (1).jpeg",
+            "WhatsApp Image 2024-09-22 at 4.02.48 PM (2).jpeg",
+            "WhatsApp Image 2024-09-22 at 4.02.48 PM.jpeg",
+            "WhatsApp Image 2024-09-22 at 4.02.49 PM (1).jpeg",
+            "WhatsApp Image 2024-09-22 at 4.02.49 PM (2).jpeg",
+            "WhatsApp Image 2024-09-22 at 4.02.49 PM (3).jpeg",
+            "WhatsApp Image 2024-09-22 at 4.02.49 PM.jpeg"
+        ];
+
+        function createImage(src, isMainImage = false) {
+            const img = document.createElement("img");
+            img.src = src;
+            img.className = "floating-images";
+            img.style.top = Math.random() * 100 + "vh";
+            img.style.left = Math.random() * 100 + "vw";
+            img.style.animationDuration = (Math.random() * 5 + 5) + "s";
+            img.style.width = isMainImage ? "30vw" : "15vw";
+            img.style.height = "auto";
+            document.body.appendChild(img);
         }
 
-        noButton.addEventListener("mouseenter", function() {
-            moveButton(noButton);
+        // Crear imágenes
+        imageSources.forEach((src, index) => {
+            createImage(src, index === 0); // La primera imagen será la principal
         });
+
+        // Función para mover el botón "No" en un cuadro de 10x10 píxeles
+        function moveButton() {
+            const maxX = window.innerWidth - noButton.offsetWidth;
+            const maxY = window.innerHeight - noButton.offsetHeight;
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+
+            noButton.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        }
+
+        noButton.addEventListener("mouseenter", moveButton);
 
         noButton.addEventListener("click", function(event) {
             event.preventDefault();
             noClickCount++;
-            moveButton(noButton); // Mover el botón cada vez que se hace clic
-            createDestello();
             if (noClickCount >= 5) {
                 mensajeFinal.style.display = "block";
                 setTimeout(() => {
@@ -283,32 +296,21 @@
             noButton.style.display = "none"; 
             song.play();
             body.style.backgroundColor = "#ffcccc"; 
-
-            for (let i = 0; i < 50; i++) {
-                createHeart();
-            }
         });
 
         function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('background-heart');
-            heart.style.left = `${Math.random() * 100}vw`;
-            heart.style.animationDuration = `${Math.random() * 10 + 5}s`;
+            const heart = document.createElement("div");
+            heart.className = "background-heart";
+            heart.style.top = Math.random() * 100 + "vh";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 5 + 5 + "s";
             backgroundHearts.appendChild(heart);
         }
 
-        function createDestello() {
-            destello.style.display = "block";
-            destello.style.animation = "destelloAnimar 1s forwards";
-            setTimeout(() => {
-                destello.style.display = "none";
-            }, 1000);
-        }
-
+        // Crear corazones rojos
         for (let i = 0; i < 50; i++) {
             createHeart();
         }
     </script>
 </body>
 </html>
-

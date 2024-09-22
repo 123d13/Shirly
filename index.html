@@ -288,21 +288,12 @@
             createHeart();
         }
 
-        if (!isMobile) {
-            noButton.addEventListener("mouseenter", function() {
-                noButton.style.top = `${Math.random() * 80 + 10}vh`;
-                noButton.style.left = `${Math.random() * 80 + 10}vw`;
-            });
-        } else {
-            noButton.addEventListener("click", function() {
-                noButton.style.top = `${Math.random() * 100}vh`;
-                noButton.style.left = `${Math.random() * 100}vw`;
-            });
-        }
-
         noButton.addEventListener("click", function(event) {
             event.preventDefault();
             noClickCount++;
+            noButton.style.top = `${Math.random() * 80 + 10}vh`;
+            noButton.style.left = `${Math.random() * 80 + 10}vw`;
+
             if (noClickCount >= 5 && isMobile) {
                 mensajeFinal.style.display = "block";
                 setTimeout(() => {

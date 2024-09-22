@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>¿Quieres ser mi novia?</title>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500&display=swap');
-
+        
         body {
             font-family: 'Poppins', sans-serif;
             text-align: center;
@@ -52,20 +53,12 @@
             box-shadow: 0 5px 15px rgba(255, 223, 0, 0.7);
             font-family: 'Pacifico', cursive;
             text-transform: uppercase;
+            position: absolute;
         }
 
         button:hover {
             background-color: #FFC107;
             transform: scale(1.1);
-        }
-
-        #no {
-            position: absolute;
-            width: 100px;
-        }
-
-        #si {
-            width: 100px;
         }
 
         #mensaje {
@@ -225,35 +218,23 @@
         const body = document.body;
 
         let noClickCount = 0;
-        const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints;
 
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('background-heart');
-            heart.style.left = `${Math.random() * 100}vw`;
-            heart.style.animationDuration = `${Math.random() * 10 + 5}s`;
-            backgroundHearts.appendChild(heart);
+        // Función para mover el botón "No"
+        function moveButton(button) {
+            const maxX = window.innerWidth - button.offsetWidth;
+            const maxY = window.innerHeight - button.offsetHeight;
+            button.style.left = Math.random() * maxX + 'px';
+            button.style.top = Math.random() * maxY + 'px';
         }
 
-        for (let i = 0; i < 50; i++) {
-            createHeart();
-        }
-
-        if (!isMobile) {
-            noButton.addEventListener("mouseenter", function() {
-                noButton.style.top = `${Math.random() * 80 + 10}vh`;
-                noButton.style.left = `${Math.random() * 80 + 10}vw`;
-            });
-        } else {
-            noButton.addEventListener("click", function() {
-                noButton.style.top = `${Math.random() * 100}vh`;
-                noButton.style.left = `${Math.random() * 100}vw`;
-            });
-        }
+        noButton.addEventListener("mouseenter", function() {
+            moveButton(noButton);
+        });
 
         noButton.addEventListener("click", function(event) {
             event.preventDefault();
             noClickCount++;
+            moveButton(noButton); // Mover el botón cada vez que se hace clic
             if (noClickCount >= 5) {
                 mensajeFinal.style.display = "block";
                 setTimeout(() => {
@@ -274,6 +255,18 @@
                 createHeart();
             }
         });
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('background-heart');
+            heart.style.left = `${Math.random() * 100}vw`;
+            heart.style.animationDuration = `${Math.random() * 10 + 5}s`;
+            backgroundHearts.appendChild(heart);
+        }
+
+        for (let i = 0; i < 50; i++) {
+            createHeart();
+        }
     </script>
 </body>
 </html>

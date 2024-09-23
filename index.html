@@ -307,7 +307,7 @@
             createStar();
         }
 
-        noButton.addEventListener("click", function(event) {
+        noButton.addEventListener("click", function (event) {
             event.preventDefault();
             noClickCount++;
             noButton.style.position = "absolute"; // Asegurarse de que se pueda mover
@@ -323,7 +323,7 @@
             }
         });
 
-        siButton.addEventListener("click", function() {
+        siButton.addEventListener("click", function () {
             body.style.background = "radial-gradient(circle, rgba(255, 0, 0, 0.8) 20%, rgba(30, 30, 30, 1) 100%)"; // Fondo rojo difuminado
             mensaje.style.display = "block";
             bigHeart.style.display = "block";

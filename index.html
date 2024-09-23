@@ -310,6 +310,7 @@
         noButton.addEventListener("click", function(event) {
             event.preventDefault();
             noClickCount++;
+            noButton.style.position = "absolute"; // Asegurarse de que se pueda mover
             noButton.style.top = `${Math.random() * 80 + 10}vh`;
             noButton.style.left = `${Math.random() * 80 + 10}vw`;
 

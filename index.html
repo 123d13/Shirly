@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>¿Quieres ser mi novia?</title>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500&display=swap');
 
@@ -21,6 +22,7 @@
             align-items: center;
             overflow: hidden;
             position: relative;
+            transition: background-color 1s ease;
         }
 
         h1, p {
@@ -32,19 +34,6 @@
         h1 {
             font-size: 4vw;
             margin-bottom: 20px;
-            overflow: hidden;
-            display: inline-block;
-            white-space: nowrap;
-            animation: cascade 3s forwards;
-        }
-
-        @keyframes cascade {
-            0% {
-                width: 0;
-            }
-            100% {
-                width: 100%;
-            }
         }
 
         p {
@@ -64,7 +53,6 @@
             box-shadow: 0 5px 15px rgba(255, 223, 0, 0.7);
             font-family: 'Pacifico', cursive;
             text-transform: uppercase;
-            position: relative;
         }
 
         button:hover {
@@ -72,21 +60,12 @@
             transform: scale(1.1);
         }
 
-        #no {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation: move 2s infinite alternate ease-in-out;
+        #no, #si {
+            width: 100px;
         }
 
-        @keyframes move {
-            0% {
-                transform: translate(-50%, -50%) translateX(-30px);
-            }
-            100% {
-                transform: translate(-50%, -50%) translateX(30px);
-            }
+        #no {
+            position: absolute;
         }
 
         #mensaje {
@@ -130,21 +109,25 @@
 
         .background-heart {
             position: absolute;
-            color: red;
-            animation: float 20s ease-in-out infinite;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            clip-path: polygon(50% 0%, 100% 38%, 80% 100%, 50% 78%, 20% 100%, 0% 38%);
+            animation: float 15s ease-in-out infinite;
             opacity: 0.8;
         }
 
         @keyframes float {
             0% {
-                transform: translateY(100vh);
+                transform: translateY(100vh) scale(0.8);
                 opacity: 0.8;
             }
             100% {
-                transform: translateY(-10vh);
+                transform: translateY(-10vh) scale(1.2);
                 opacity: 0;
             }
         }
+
         #big-heart {
             display: none;
             position: absolute;
@@ -155,6 +138,7 @@
             color: red;
             animation: explotar 2s ease-in-out forwards;
         }
+
         @keyframes explotar {
             0% {
                 transform: translate(-50%, -50%) scale(0.5);
@@ -167,23 +151,59 @@
                 opacity: 0;
             }
         }
-         
+
         .floating-images {
             position: absolute;
-            width: 10vw; /* Tamaño más pequeño */
-            height: 10vw; /* Hacer imágenes cuadradas */
-            animation: explode 1.5s ease forwards; /* Duración de 1.5 segundos antes de explotar */
+            width: 100px;
+            height: auto;
+            border-radius: 10px;
+            object-fit: cover;
+            animation: float 10s infinite ease-in-out;
             opacity: 0.9;
-            z-index: 0;
         }
 
-        @keyframes explode {
+        @keyframes float {
             0% {
-                transform: scale(0);
+                transform: translateY(100vh) scale(0.8);
+                opacity: 0.9;
             }
             100% {
-                transform: scale(1);
+                transform: translateY(-10vh) scale(1);
                 opacity: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 8vw;
+            }
+
+            button {
+                padding: 8px 16px;
+                font-size: 5vw;
+                width: 80px;
+            }
+
+            #mensaje {
+                font-size: 5vw;
+            }
+
+            #big-heart {
+                font-size: 50vw;
+            }
+
+            .background-heart {
+                width: 15px;
+                height: 15px;
+            }
+
+            .corazon {
+                font-size: 6vw;
+            }
+
+            .floating-images {
+                width: 50px;
+                height: 50px;
             }
         }
 
@@ -205,27 +225,6 @@
             text-align: center;
             z-index: 100;
         }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 8vw;
-            }
-
-            button {
-                padding: 8px 16px;
-                font-size: 5vw;
-                width: 80px;
-            }
-
-            #mensaje {
-                font-size: 5vw;
-            }
-
-            .floating-images {
-                width: 15vw; /* Aumentar tamaño en móviles */
-                height: 15vw; /* Mantener proporción cuadrada */
-            }
-        }
     </style>
 </head>
 <body>
@@ -238,18 +237,8 @@
         <span class="corazon">&#10084;</span><span class="corazon">&#10084;</span><span class="corazon">&#10084;</span>
     </div>
 
-    <div class="background-hearts">
-        <!-- Corazones flotantes -->
-        <span class="background-heart" style="left: 10%; animation-duration: 10s; font-size: 24px;">&#10084;</span>
-        <span class="background-heart" style="left: 20%; animation-duration: 15s; font-size: 18px;">&#10084;</span>
-        <span class="background-heart" style="left: 30%; animation-duration: 12s; font-size: 28px;">&#10084;</span>
-        <span class="background-heart" style="left: 40%; animation-duration: 8s; font-size: 16px;">&#10084;</span>
-        <span class="background-heart" style="left: 50%; animation-duration: 20s; font-size: 20px;">&#10084;</span>
-        <span class="background-heart" style="left: 60%; animation-duration: 18s; font-size: 26px;">&#10084;</span>
-        <span class="background-heart" style="left: 70%; animation-duration: 14s; font-size: 22px;">&#10084;</span>
-        <span class="background-heart" style="left: 80%; animation-duration: 10s; font-size: 30px;">&#10084;</span>
-        <span class="background-heart" style="left: 90%; animation-duration: 16s; font-size: 24px;">&#10084;</span>
-    </div>
+    <div class="background-hearts"></div>
+    <div id="big-heart">&#10084;</div>
 
     <div id="mensaje-final">
         <p>Está bien, tal vez no soy lo que quieres, pero tú para mí eras todo lo que siempre he soñado.</p>
@@ -265,15 +254,22 @@
         const siButton = document.getElementById("si");
         const mensaje = document.getElementById("mensaje");
         const backgroundHearts = document.querySelector('.background-hearts');
+        const bigHeart = document.getElementById("big-heart");
         const mensajeFinal = document.getElementById("mensaje-final");
         const song = document.getElementById("romantic-song");
+        const body = document.body;
 
         let noClickCount = 0;
+        const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints;
 
         const imageSources = [
             "WhatsApp Image 2024-09-22 at 2.01.46 AM.jpeg",
             "WhatsApp Image 2024-09-22 at 2.01.47 AM.jpeg",
             "WhatsApp Image 2024-09-22 at 3.10.57 PM.jpeg",
+            "WhatsApp Image 2024-09-22 at 3.47.01 PM (1).jpeg",
+            "WhatsApp Image 2024-09-22 at 3.47.01 PM (2).jpeg",
+            "WhatsApp Image 2024-09-22 at 3.47.01 PM.jpeg",
+            "WhatsApp Image 2024-09-22 at 3.49.04 PM.jpeg",
             "WhatsApp Image 2024-09-22 at 4.02.48 PM (1).jpeg",
             "WhatsApp Image 2024-09-22 at 4.02.48 PM (2).jpeg",
             "WhatsApp Image 2024-09-22 at 4.02.48 PM.jpeg",
@@ -283,47 +279,69 @@
             "WhatsApp Image 2024-09-22 at 4.02.49 PM.jpeg"
         ];
 
-// Crear corazones de fondo
-for (let i = 0; i < 100; i++) {
-    const heart = document.createElement("span");
-    heart.className = "background-heart";
-    heart.innerHTML = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (Math.random() * 5 + 10) + "s"; // Variar duración
-    heart.style.fontSize = Math.random() * 30 + 20 + "px"; // Variar tamaño
-    backgroundHearts.appendChild(heart);
-}
-        
-        
-
         function createImage(src) {
             const img = document.createElement("img");
             img.src = src;
-            img.classList.add("floating-images");
+            img.className = "floating-images";
             img.style.top = Math.random() * 100 + "vh";
             img.style.left = Math.random() * 100 + "vw";
-            document.body.appendChild(img);
-            setTimeout(() => {
-                img.remove();
-            }, 3000); // Ajustar tiempo de duración de la animación de explode
+            img.style.transform = `translate(-50%, -50%) rotate(${Math.random() * 360}deg)`;
+            backgroundHearts.appendChild(img);
         }
 
-        siButton.addEventListener("click", function () {
-            mensaje.style.display = "block";
-            mensajeFinal.style.display = "none";
-            setInterval(() => {
-                imageSources.forEach(src => createImage(src));
-            }, 1000);
-        });
+        for (let i = 0; i < imageSources.length; i++) {
+            createImage(imageSources[i]);
+        }
 
-        noButton.addEventListener("click", function () {
+        for (let i = 0; i < 50; i++) {
+            createHeart();
+        }
+
+        if (!isMobile) {
+            noButton.addEventListener("mouseenter", function() {
+                noButton.style.top = `${Math.random() * 80 + 10}vh`;
+                noButton.style.left = `${Math.random() * 80 + 10}vw`;
+            });
+        } else {
+            noButton.addEventListener("click", function() {
+                noButton.style.top = `${Math.random() * 100}vh`;
+                noButton.style.left = `${Math.random() * 100}vw`;
+            });
+        }
+
+        noButton.addEventListener("click", function(event) {
+            event.preventDefault();
             noClickCount++;
-            if (noClickCount >= 3) {
+            if (noClickCount >= 5 && isMobile) {
                 mensajeFinal.style.display = "block";
-                mensaje.style.display = "none";
-                song.pause();
+                setTimeout(() => {
+                    mensajeFinal.style.display = "none";
+                    noClickCount = 0;
+                }, 10000);
             }
         });
+
+        siButton.addEventListener("click", function() {
+            mensaje.style.display = "block";
+            bigHeart.style.display = "block";
+            noButton.style.display = "none"; 
+            song.play();
+            body.style.backgroundColor = "#ffcccc"; 
+
+            for (let i = 0; i < 50; i++) {
+                createHeart();
+            }
+        });
+
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.className = "background-heart";
+            heart.style.top = Math.random() * 100 + "vh";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 5 + 5 + "s";
+            backgroundHearts.appendChild(heart);
+        }
     </script>
 </body>
 </html>
+

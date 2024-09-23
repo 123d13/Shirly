@@ -11,7 +11,9 @@
         body {
             font-family: 'Poppins', sans-serif;
             text-align: center;
+            background-color: #1e1e1e; /* Fallback for older browsers */
             background: radial-gradient(circle, rgba(0, 0, 0, 1) 20%, rgba(30, 30, 30, 1) 100%) !important;
+            background-attachment: fixed; /* Fix for iOS background rendering */
             color: white;
             margin: 0;
             padding: 0;
@@ -256,105 +258,56 @@
             "WhatsApp Image 2024-09-22 at 3.47.01 PM (2).jpeg",
             "WhatsApp Image 2024-09-22 at 3.47.01 PM.jpeg",
             "WhatsApp Image 2024-09-22 at 3.49.04 PM.jpeg",
-            "WhatsApp Image 2024-09-22 at 4.02.48 PM (1).jpeg",
-            "WhatsApp Image 2024-09-22 at 4.02.48 PM (2).jpeg",
+            "WhatsApp Image 2024-09-22 at 4.02.48 PM (1"WhatsApp Image 2024-09-22 at 4.02.48 PM (2).jpeg",
             "WhatsApp Image 2024-09-22 at 4.02.48 PM.jpeg",
             "WhatsApp Image 2024-09-22 at 4.02.49 PM (1).jpeg",
             "WhatsApp Image 2024-09-22 at 4.02.49 PM (2).jpeg",
             "WhatsApp Image 2024-09-22 at 4.02.49 PM (3).jpeg",
-            "WhatsApp Image 2024-09-22 at 4.02.49 PM.jpeg",
-            "WhatsApp Image 2024-09-22 at 5.21.28 PM.jpeg"
+            "WhatsApp Image 2024-09-22 at 4.02.49 PM.jpeg"
         ];
 
-        function createImage(src, isMainImage = false) {
+        // Función para mostrar las imágenes flotantes
+        function createFloatingImage(src) {
             const img = document.createElement("img");
             img.src = src;
-            img.className = "floating-images";
-            img.style.width = isMainImage ? "20vw" : "5vw";
-            img.style.height = "auto";
-            img.style.top = Math.random() * 100 + "vh";
+            img.classList.add("floating-images");
             img.style.left = Math.random() * 100 + "vw";
-            img.style.transform = "translate(-50%, -50%)";
-            img.style.animationDuration = (Math.random() * 5 + 5) + "s";
-            img.style.opacity = "0.9";
-            img.style.zIndex = "0";
+            img.style.animationDuration = Math.random() * 5 + 15 + "s";
             backgroundHearts.appendChild(img);
 
             setTimeout(() => {
-                img.style.opacity = "0";
-            }, 15000);
+                img.remove();
+            }, 20000); // Remover la imagen después de 20 segundos
         }
 
-        // Crear múltiples instancias de la imagen principal
-        for (let i = 0; i < 10; i++) {
-            createImage(imageSources[0], true);
-        }
+        // Mostrar las imágenes cada segundo
+        setInterval(() => {
+            const randomImage = imageSources[Math.floor(Math.random() * imageSources.length)];
+            createFloatingImage(randomImage);
+        }, 1000);
 
-        // Crear instancias de las otras imágenes
-        for (let i = 1; i < imageSources.length; i++) {
-            for (let j = 0; j < 5; j++) {
-                createImage(imageSources[i]);
-            }
-        }
+        // Al hacer clic en "Sí"
+        siButton.addEventListener("click", () => {
+            bigHeart.style.display = "block"; // Mostrar el corazón grande
+            bigHeart.classList.add("animacion-corazon");
+            mensaje.style.display = "block"; // Mostrar mensaje
+            setTimeout(() => {
+                bigHeart.style.display = "none"; // Desaparecer el corazón grande después de la animación
+            }, 2000);
+        });
 
-        // Crear corazones flotantes
-        for (let i = 0; i < 100; i++) {
-            createHeart();
-        }
-
-        // Crear estrellas flotantes
-        for (let i = 0; i < 50; i++) {
-            createStar();
-        }
-
-        noButton.addEventListener("click", function (event) {
-            event.preventDefault();
+        // Al hacer clic en "No"
+        noButton.addEventListener("click", () => {
             noClickCount++;
-            noButton.style.position = "absolute"; // Asegurarse de que se pueda mover
-            noButton.style.top = `${Math.random() * 80 + 10}vh`;
-            noButton.style.left = `${Math.random() * 80 + 10}vw`;
-
-            if (noClickCount >= 5) {
+            if (noClickCount === 1) {
                 mensajeFinal.style.display = "block";
-                setTimeout(() => {
-                    mensajeFinal.style.display = "none";
-                    noClickCount = 0;
-                }, 10000);
+                song.pause();
+            } else {
+                noButton.style.left = Math.random() * (window.innerWidth - noButton.offsetWidth) + "px";
+                noButton.style.top = Math.random() * (window.innerHeight - noButton.offsetHeight) + "px";
             }
         });
-
-        siButton.addEventListener("click", function () {
-            body.style.background = "radial-gradient(circle, rgba(255, 0, 0, 0.8) 20%, rgba(30, 30, 30, 1) 100%)"; // Fondo rojo difuminado
-            mensaje.style.display = "block";
-            bigHeart.style.display = "block";
-            noButton.style.display = "none"; // Ocultar botón "No"
-            siButton.style.display = "none"; // Ocultar botón "Sí"
-            song.play();
-
-            for (let i = 0; i < 50; i++) {
-                createHeart(); // Agregar más corazones flotantes
-            }
-        });
-
-        function createHeart() {
-            const heart = document.createElement("div");
-            heart.className = "background-heart";
-            heart.innerHTML = "❤️"; // Corazón flotante
-            heart.style.top = Math.random() * 100 + "vh";
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.animationDuration = Math.random() * 5 + 5 + "s";
-            backgroundHearts.appendChild(heart);
-        }
-
-        function createStar() {
-            const star = document.createElement("div");
-            star.className = "star";
-            star.innerHTML = "⭐"; // Estrella flotante
-            star.style.top = Math.random() * 100 + "vh";
-            star.style.left = Math.random() * 100 + "vw";
-            star.style.animationDuration = (Math.random() * 5 + 5) + "s";
-            backgroundStars.appendChild(star);
-        }
     </script>
 </body>
+
 </html>

@@ -92,7 +92,7 @@
             }
         }
 
-        .background-hearts {
+        .background-hearts, .background-stars {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -103,7 +103,7 @@
             overflow: hidden;
         }
 
-        .background-heart, .floating-images {
+        .background-heart, .floating-images, .star {
             position: absolute;
             animation: float 20s ease-in-out infinite;
             opacity: 0.8;
@@ -213,6 +213,7 @@
     </div>
 
     <div class="background-hearts"></div>
+    <div class="background-stars"></div>
     <div id="big-heart">&#10084;</div>
 
     <div id="mensaje-final">
@@ -229,6 +230,7 @@
         const siButton = document.getElementById("si");
         const mensaje = document.getElementById("mensaje");
         const backgroundHearts = document.querySelector('.background-hearts');
+        const backgroundStars = document.querySelector('.background-stars');
         const bigHeart = document.getElementById("big-heart");
         const mensajeFinal = document.getElementById("mensaje-final");
         const song = document.getElementById("romantic-song");
@@ -286,9 +288,14 @@
             }
         }
 
-        // Crear corazones rojos
-        for (let i = 0; i < 50; i++) {
+        // Crear corazones flotantes
+        for (let i = 0; i < 100; i++) {
             createHeart();
+        }
+
+        // Crear estrellas flotantes
+        for (let i = 0; i < 50; i++) {
+            createStar();
         }
 
         noButton.addEventListener("click", function(event) {
@@ -311,21 +318,31 @@
             bigHeart.style.display = "block";
             noButton.style.display = "none"; // Ocultar botón "No"
             song.play();
-            body.style.backgroundColor = "#ffcccc";
+            body.style.backgroundColor = "#ffccff"; // Cambiar a un color acorde
 
             for (let i = 0; i < 50; i++) {
-                createHeart();
+                createHeart(); // Agregar más corazones flotantes
             }
         });
 
         function createHeart() {
             const heart = document.createElement("div");
             heart.className = "background-heart";
-            heart.innerHTML = "❤️‍🔥"; // Corazón flotante
+            heart.innerHTML = "❤️"; // Corazón flotante
             heart.style.top = Math.random() * 100 + "vh";
             heart.style.left = Math.random() * 100 + "vw";
             heart.style.animationDuration = Math.random() * 5 + 5 + "s";
             backgroundHearts.appendChild(heart);
+        }
+
+        function createStar() {
+            const star = document.createElement("div");
+            star.className = "star";
+            star.innerHTML = "⭐"; // Estrella flotante
+            star.style.top = Math.random() * 100 + "vh";
+            star.style.left = Math.random() * 100 + "vw";
+            star.style.animationDuration = (Math.random() * 5 + 5) + "s";
+            backgroundStars.appendChild(star);
         }
     </script>
 </body>
